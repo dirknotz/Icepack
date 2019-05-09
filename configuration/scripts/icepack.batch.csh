@@ -111,6 +111,20 @@ cat >> ${jobfile} << EOFB
 #SBATCH --qos=standby
 EOFB
 
+else if (${ICE_MACHINE} =~ mistral*) then
+cat >> ${jobfile} << EOFB
+#SBATCH -J ${ICE_CASENAME}
+#SBATCH -t ${ICE_RUNLENGTH}
+#SBATCH -A ${acct}
+#SBATCH -N ${nnodes}
+#SBATCH -e slurm%j.err
+#SBATCH -o slurm%j.out
+#SBATCH --mail-type END,FAIL
+#SBATCH --mail-user=dirk.notz@mpimet.mpg.de
+#SBATCH --partition=compute
+###SBATCH --qos=standby
+EOFB
+
 else if (${ICE_MACHINE} =~ loft*) then
 cat >> ${jobfile} << EOFB
 # nothing to do
